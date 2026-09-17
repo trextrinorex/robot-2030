@@ -1,0 +1,210 @@
+@import "tailwindcss";
+
+:root {
+  /* Industrial research palette — original, not AI-neon */
+  --bg-deep: #0c0f12;
+  --bg-surface: #141a1f;
+  --bg-elevated: #1c242c;
+  --bg-card: #1a2229;
+  --border-subtle: #2a343e;
+  --border-strong: #3d4a57;
+  
+  --text-primary: #e8eef4;
+  --text-secondary: #a0aec0;
+  --text-muted: #6b7a8a;
+  --text-inverse: #0c0f12;
+  
+  --accent-steel: #5b8fa8;
+  --accent-amber: #c9922a;
+  --accent-success: #3d8b6e;
+  --accent-warning: #b87a2a;
+  --accent-danger: #a84848;
+  
+  --label-documented: #3d8b6e;
+  --label-modeled: #5b8fa8;
+  --label-scenario: #c9922a;
+  --label-assumption: #8a6b9e;
+  --label-speculative: #a84848;
+  
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+@theme inline {
+  --color-background: var(--bg-deep);
+  --color-foreground: var(--text-primary);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Typography hierarchy */
+.prose-report h1 {
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: var(--text-primary);
+}
+
+.prose-report h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.prose-report h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.prose-report p {
+  margin-bottom: 1.25rem;
+  color: var(--text-secondary);
+  max-width: 68ch;
+}
+
+.prose-report strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* Evidence labels */
+.label {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  border-radius: 2px;
+  border: 1px solid;
+}
+
+.label-documented {
+  color: var(--label-documented);
+  border-color: var(--label-documented);
+  background: color-mix(in srgb, var(--label-documented) 12%, transparent);
+}
+
+.label-modeled {
+  color: var(--label-modeled);
+  border-color: var(--label-modeled);
+  background: color-mix(in srgb, var(--label-modeled) 12%, transparent);
+}
+
+.label-scenario {
+  color: var(--label-scenario);
+  border-color: var(--label-scenario);
+  background: color-mix(in srgb, var(--label-scenario) 12%, transparent);
+}
+
+.label-assumption {
+  color: var(--label-assumption);
+  border-color: var(--label-assumption);
+  background: color-mix(in srgb, var(--label-assumption) 12%, transparent);
+}
+
+.label-speculative {
+  color: var(--label-speculative);
+  border-color: var(--label-speculative);
+  background: color-mix(in srgb, var(--label-speculative) 12%, transparent);
+}
+
+/* Cards */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+}
+
+.card-elevated {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-strong);
+}
+
+/* Metric display */
+.metric-value {
+  font-family: var(--font-mono);
+  font-size: 1.75rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.metric-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Section spacing */
+.section {
+  padding: 4rem 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.container-narrow {
+  max-width: 720px;
+}
+
+/* Focus states for accessibility */
+:focus-visible {
+  outline: 2px solid var(--accent-steel);
+  outline-offset: 2px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 4px;
+}

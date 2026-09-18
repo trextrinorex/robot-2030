@@ -1,7 +1,44 @@
+"use client";
+
+import { useEffect, useState, useRef, useCallback } from "react";
+import { TIMELINE } from "@/data/timeline";
+import { SCENARIOS, DEFAULT_SCENARIO, type ScenarioId } from "@/data/scenarios";
+import { StickyDashboard } from "@/components/StickyDashboard";
+import { Expandable } from "@/components/Expandable";
+
 export default function Home() {
+  const [scenarioId, setScenarioId] = useState<ScenarioId>(DEFAULT_SCENARIO);
+  const [activePeriodId, setActivePeriodId] = useState(TIMELINE[0].id);
+  const periodRefs = useRef<Record<string, HTMLElement | null>>({});
+
+  const activePeriod = TIMELINE.find((p) => p.id === activePeriodId) ?? TIMELINE[0];
+  const metrics = activePeriod.metricsByScenario[scenarioId];
+
+  const setPeriodRef = useCallback((id: string) => (el: HTMLElement | null) => {
+    periodRefs.current[id] = el;
+  }, []);
+
+  useEffect(() => {
+    const observers: IntersectionObserver[] = [];
+    TIMELINE.forEach((period) => {
+      const el = periodRefs.current[period.id];
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) setActivePeriodId(period.id);
+          });
+        },
+        { rootMargin: "-20% 0px -50% 0px", threshold: 0 }
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+    return () => observers.forEach((o) => o.disconnect());
+  }, []);
+
   return (
     <div className="min-h-screen">
-      {/* COVER */}
       <header className="relative min-h-[100vh] flex flex-col justify-between border-b border-[var(--border-subtle)]">
         <div className="container pt-8 pb-4 flex items-center justify-between">
           <div className="font-mono text-xs tracking-widest text-[var(--text-muted)] uppercase">
@@ -9,16 +46,16 @@ export default function Home() {
           </div>
           <nav className="hidden md:flex gap-6 text-sm text-[var(--text-secondary)]">
             <a href="#question" className="hover:text-[var(--text-primary)] transition-colors">The Question</a>
-            <a href="#today" className="hover:text-[var(--text-primary)] transition-colors">World Today</a>
-            <a href="#economics" className="hover:text-[var(--text-primary)] transition-colors">Economics</a>
-            <a href="#scenarios" className="hover:text-[var(--text-primary)] transition-colors">Scenarios</a>
+            <a href="#timeline" className="hover:text-[var(--text-primary)] transition-colors">Timeline</a>
+            <a href="#mechanisms" className="hover:text-[var(--text-primary)] transition-colors">Mechanisms</a>
+            <a href="#scenarios-detail" className="hover:text-[var(--text-primary)] transition-colors">Scenarios</a>
           </nav>
         </div>
 
         <div className="container flex-1 flex flex-col justify-center py-16 md:py-24">
           <div className="max-w-3xl">
             <p className="font-mono text-xs tracking-[0.2em] text-[var(--accent-amber)] uppercase mb-6">
-              Not a prediction · A structured scenario
+              Not a prediction · A structured scenario investigation
             </p>
             <h1 className="text-5xl md:text-7xl font-semibold tracking-tight text-[var(--text-primary)] mb-6 leading-[1.05]">
               ROBOT 2030
@@ -29,9 +66,9 @@ export default function Home() {
               demonstrations into ordinary workplaces by around 2030?
             </p>
             <div className="flex flex-wrap gap-3">
-              <span className="label label-scenario">Scenario Analysis</span>
-              <span className="label label-documented">Evidence-Based</span>
-              <span className="label label-assumption">Assumptions Explicit</span>
+              <span className="label label-scenario">Four coherent futures</span>
+              <span className="label label-documented">Evidence labeled</span>
+              <span className="label label-assumption">Assumptions explicit</span>
             </div>
           </div>
         </div>
@@ -40,7 +77,7 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 border-t border-[var(--border-subtle)] pt-8">
             <div>
               <div className="metric-value text-2xl">~65k+</div>
-              <div className="metric-label mt-1">Documented operating hours (Digit fleets)</div>
+              <div className="metric-label mt-1">Documented Digit operating hours</div>
             </div>
             <div>
               <div className="metric-value text-2xl">$13.5k–$30/hr</div>
@@ -52,19 +89,16 @@ export default function Home() {
             </div>
             <div>
               <div className="metric-value text-2xl">4</div>
-              <div className="metric-label mt-1">Coherent future scenarios examined</div>
+              <div className="metric-label mt-1">Scenarios examined side-by-side</div>
             </div>
           </div>
         </div>
       </header>
 
-      {/* THE QUESTION */}
       <section id="question" className="section">
         <div className="container">
           <div className="container-narrow prose-report mx-auto">
-            <p className="font-mono text-xs tracking-widest text-[var(--accent-steel)] uppercase mb-4">
-              01 · The Question
-            </p>
+            <p className="font-mono text-xs tracking-widest text-[var(--accent-steel)] uppercase mb-4">01 · The Question</p>
             <h2>A machine on the floor</h2>
             <p>
               In a distribution center outside Atlanta, a bipedal robot named
@@ -113,257 +147,230 @@ export default function Home() {
         </div>
       </section>
 
-      {/* WORLD TODAY */}
-      <section id="today" className="section">
+      <section className="section border-y border-[var(--border-subtle)] bg-[var(--bg-surface)]">
         <div className="container">
           <div className="container-narrow prose-report mx-auto">
-            <p className="font-mono text-xs tracking-widest text-[var(--accent-steel)] uppercase mb-4">
-              02 · The World Today
-            </p>
-            <h2>Capability reality check</h2>
+            <p className="font-mono text-xs tracking-widest text-[var(--accent-steel)] uppercase mb-4">How to read this</p>
+            <h2 className="mt-0">Labels, side panel, and scenarios</h2>
             <p>
-              Public demonstrations still dominate the conversation. A robot
-              folds a shirt, opens a door, or walks across uneven terrain under
-              carefully controlled conditions. These clips are useful for
-              fundraising and recruiting. They are poor evidence of economic
-              viability.
+              Every substantive claim is tagged.{" "}
+              <span className="label label-documented">Documented</span> means grounded in public deployments, filings, or credible reporting.{" "}
+              <span className="label label-modeled">Modeled</span> means derived from explicit assumptions and available data.{" "}
+              <span className="label label-scenario">Scenario</span> marks internally consistent future pathways.{" "}
+              <span className="label label-assumption">Assumption</span> flags inputs that, if wrong, change the conclusion.
             </p>
             <p>
-              What matters more are sustained operating hours, intervention
-              rates, mean time between failures, cost per useful hour, and the
-              breadth of tasks a single platform can perform without extensive
-              re-engineering. On those metrics the picture is more modest.
+              On larger screens a sticky dashboard tracks the active period and the selected scenario.
+              Switch scenarios at any time; the metrics and capability bars update to show how the same starting point can diverge.
+              The numbers are illustrative trajectories, not forecasts.
             </p>
+          </div>
+        </div>
+      </section>
 
-            <h3>What is working in constrained settings</h3>
-            <ul className="list-disc pl-5 space-y-2 text-[var(--text-secondary)] mb-6">
-              <li>
-                <strong className="text-[var(--text-primary)]">Locomotion on flat industrial floors</strong> —
-                bipedal and wheeled-bipedal platforms can navigate structured
-                warehouses and factory aisles at useful speeds.
-              </li>
-              <li>
-                <strong className="text-[var(--text-primary)]">Repetitive material handling</strong> —
-                tote transfer, specific part positioning, and machine tending
-                in well-mapped cells.
-              </li>
-              <li>
-                <strong className="text-[var(--text-primary)]">RaaS commercial models</strong> —
-                customers can pay for capability without owning hardware and
-                maintenance risk.
-              </li>
-            </ul>
+      <section id="timeline" className="section">
+        <div className="container">
+          <div className="mb-12 max-w-2xl">
+            <p className="font-mono text-xs tracking-widest text-[var(--accent-steel)] uppercase mb-4">02 · Chronological Spine</p>
+            <h2 className="mt-0">From pilots to possible scale</h2>
+            <p className="text-[var(--text-secondary)]">
+              The following periods are not a prediction of what will happen.
+              They are a structured way to watch the same variables — fleet size, cost per useful hour, intervention rate, task breadth —
+              evolve under four different causal stories. Scroll; the dashboard follows.
+            </p>
+          </div>
 
-            <h3>What remains difficult</h3>
-            <ul className="list-disc pl-5 space-y-2 text-[var(--text-secondary)] mb-6">
-              <li>Reliable dexterous manipulation across varied objects and force regimes.</li>
-              <li>Long-horizon autonomy without frequent human intervention.</li>
-              <li>Generalization to new environments without extensive task-specific engineering or teleoperation data.</li>
-              <li>Safe, continuous operation in the presence of untrained humans.</li>
-              <li>Battery endurance and thermal management under continuous load.</li>
-              <li>Total cost of ownership that clearly beats human labor once supervision, downtime, and integration are included.</li>
-            </ul>
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10 xl:gap-14">
+            <div className="min-w-0 space-y-20">
+              {TIMELINE.map((period) => (
+                <article
+                  key={period.id}
+                  id={`period-${period.id}`}
+                  ref={setPeriodRef(period.id)}
+                  className="prose-report scroll-mt-24"
+                >
+                  <div className="flex items-baseline gap-3 mb-2">
+                    <span className="font-mono text-xs tracking-widest text-[var(--accent-amber)] uppercase">{period.label}</span>
+                    <span className={`label label-${period.evidence}`}>{period.evidence}</span>
+                  </div>
+                  <h2 className="mt-0 mb-3">{period.title}</h2>
+                  <p className="text-lg text-[var(--text-primary)] border-l-2 border-[var(--border-strong)] pl-4 mb-6">{period.framing}</p>
+                  {period.body.map((para, i) => (
+                    <p key={i}>{para}</p>
+                  ))}
+                </article>
+              ))}
+            </div>
 
-            <div className="card p-6 my-8">
-              <p className="text-sm text-[var(--text-muted)] mb-3 font-mono uppercase tracking-wider">
-                Confidence framing
-              </p>
-              <p className="text-[var(--text-secondary)] mb-0">
-                <span className="label label-documented mr-2">High confidence</span>
-                Commercial deployments of humanoid or humanoid-adjacent robots
-                for narrow logistics and manufacturing tasks exist in 2026.
-                <br /><br />
-                <span className="label label-modeled mr-2">Medium confidence</span>
-                These deployments are still limited in task variety, geographic
-                spread, and fleet size relative to traditional industrial robots.
-                <br /><br />
-                <span className="label label-speculative mr-2">Low / Speculative</span>
-                Claims of near-term general-purpose capability or rapid
-                consumer-home deployment remain weakly supported by independent evidence.
-              </p>
+            <div className="hidden lg:block">
+              <StickyDashboard
+                metrics={metrics}
+                periodLabel={activePeriod.label}
+                scenarioId={scenarioId}
+                onScenarioChange={setScenarioId}
+              />
+            </div>
+          </div>
+
+          <div className="lg:hidden mt-12 card p-4">
+            <div className="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] mb-2">Scenario</div>
+            <div className="flex flex-wrap gap-2 mb-4">
+              {SCENARIOS.map((s) => (
+                <button
+                  key={s.id}
+                  type="button"
+                  onClick={() => setScenarioId(s.id)}
+                  className={`px-3 py-1.5 rounded text-xs border transition-colors ${
+                    s.id === scenarioId
+                      ? "border-[var(--accent-amber)] bg-[var(--bg-elevated)] text-[var(--text-primary)]"
+                      : "border-[var(--border-subtle)] text-[var(--text-muted)]"
+                  }`}
+                >
+                  {s.short}
+                </button>
+              ))}
+            </div>
+            <div className="grid grid-cols-2 gap-3 text-sm">
+              <div>
+                <div className="metric-value text-base">
+                  {metrics.fleetSize >= 1000 ? `${(metrics.fleetSize / 1000).toFixed(1)}k` : metrics.fleetSize}
+                </div>
+                <div className="metric-label">Est. fleet · {activePeriod.label}</div>
+              </div>
+              <div>
+                <div className="metric-value text-base">${metrics.costPerHour}</div>
+                <div className="metric-label">Cost / useful hr</div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* WHY HUMANOID */}
-      <section id="why" className="section">
+      <section id="mechanisms" className="section border-t border-[var(--border-subtle)]">
         <div className="container">
           <div className="container-narrow prose-report mx-auto">
-            <p className="font-mono text-xs tracking-widest text-[var(--accent-steel)] uppercase mb-4">
-              03 · Why Humanoid?
-            </p>
-            <h2>Form factor as a bet on existing infrastructure</h2>
+            <p className="font-mono text-xs tracking-widest text-[var(--accent-steel)] uppercase mb-4">03 · Mechanisms</p>
+            <h2>What has to go right — and what can stop it</h2>
+            <p>Rapid adoption is not a single breakthrough. It is a chain. Each link can hold or fail.</p>
+
+            <h3>The positive feedback loop</h3>
             <p>
-              Factories, warehouses, offices, and homes were built for human
-              bodies. Stairs, door handles, shelves at arm height, tools with
-              grips designed for hands — the physical world is saturated with
-              human-scale interfaces. A robot that can use those interfaces
-              without redesigning the environment has a theoretical advantage
-              over a specialized machine that requires custom fixtures.
+              Lower hardware cost and higher reliability → more pilot hours → more real-world data →
+              better control policies and foundation models → higher autonomy and lower intervention rates →
+              better utilization → stronger unit economics → larger orders → manufacturing scale → further cost reduction.
             </p>
             <p>
-              That is the core argument for the humanoid form. It is also the
-              argument most vulnerable to the counter-case: specialized robots
-              are often cheaper, faster, more reliable, and safer for any single
-              narrow task.
+              <span className="label label-assumption mr-2">Assumption</span>
+              This loop only compounds if intervention rates fall fast enough that supervision cost does not erase the hardware advantage,
+              and if manufacturing can actually scale the hard components (actuators, precision gearboxes, batteries, compute).
             </p>
-            <p>
-              The humanoid bet is therefore a bet on breadth and on the value
-              of not having to rebuild the world. Whether that bet pays depends
-              on how quickly general-purpose manipulation and locomotion improve
-              relative to the continued refinement of task-specific automation.
-            </p>
+
+            <Expandable title="Why cost per useful hour is the only number that matters">
+              <p className="mb-3">
+                Purchase price is a distraction. What determines adoption is the fully loaded cost of delivering a unit of useful physical work —
+                capital recovery, energy, maintenance, downtime, supervision, integration, insurance, and the opportunity cost of space and process changes.
+              </p>
+              <p className="mb-0">
+                Public data remains sparse. Secondary analyses have associated some industrial pilots with roughly $25 per robot-operating-hour.
+                RaaS pricing aims to undercut fully loaded human labor in high-turnover logistics roles. Chinese platforms list at far lower hardware prices;
+                capability, support, and longevity differ. A transparent model must let the reader vary utilization, intervention frequency, and wage benchmarks.
+              </p>
+            </Expandable>
+
+            <Expandable title="The humanoid form-factor bet">
+              <p className="mb-3">
+                Factories, warehouses, and homes were built for human bodies. Stairs, door handles, shelves at arm height, tools with human-scale grips —
+                the physical world is saturated with interfaces designed for people. A robot that can use those interfaces without redesigning the environment
+                has a theoretical advantage over a specialized machine that requires custom fixtures.
+              </p>
+              <p className="mb-0">
+                The counter-case is strong: specialized robots are often cheaper, faster, more reliable, and safer for any single narrow task.
+                The humanoid bet is a bet on breadth and on the value of not rebuilding the world.
+              </p>
+            </Expandable>
+
+            <h3>Hard bottlenecks</h3>
+            <ul className="list-disc pl-5 space-y-2 text-[var(--text-secondary)] mb-6">
+              <li><strong className="text-[var(--text-primary)]">Actuators & precision powertrain</strong> — high-torque, high-bandwidth, efficient actuators at acceptable cost and volume remain a binding constraint for many designs.</li>
+              <li><strong className="text-[var(--text-primary)]">Energy & thermal</strong> — continuous industrial duty cycles stress batteries and heat rejection. Endurance and recharge logistics affect utilization.</li>
+              <li><strong className="text-[var(--text-primary)]">Dexterous manipulation</strong> — reliable grasping and force control across varied objects and clutter is still far from human-level generality.</li>
+              <li><strong className="text-[var(--text-primary)]">Safety certification & insurance</strong> — sharing space with untrained humans raises the bar for provable safety and insurable risk.</li>
+              <li><strong className="text-[var(--text-primary)]">Long-horizon autonomy</strong> — reducing intervention rate without brittle task-specific engineering is the software half of the problem.</li>
+            </ul>
           </div>
         </div>
       </section>
 
-      {/* ECONOMICS */}
-      <section id="economics" className="section">
+      <section id="scenarios-detail" className="section border-t border-[var(--border-subtle)]">
         <div className="container">
           <div className="container-narrow prose-report mx-auto">
-            <p className="font-mono text-xs tracking-widest text-[var(--accent-steel)] uppercase mb-4">
-              04 · Economics
-            </p>
-            <h2>Cost per useful hour is the only number that matters</h2>
-            <p>
-              Purchase price is a distraction. What determines adoption is the
-              fully loaded cost of delivering a unit of useful physical work —
-              including capital recovery, energy, maintenance, downtime,
-              supervision, integration, insurance, and the opportunity cost of
-              space and process changes.
-            </p>
-            <p>
-              Public data remains sparse. Figure has been associated in
-              secondary analyses with roughly $25 per robot-operating-hour in
-              the BMW context. Agility’s filings and statements point toward
-              RaaS pricing that aims to undercut fully loaded human labor costs
-              in high-turnover logistics roles. Chinese platforms list at far
-              lower hardware prices, though capability, support, and longevity
-              differ.
-            </p>
-            <p>
-              A transparent unit-economics model must let the reader vary:
-              acquisition or RaaS cost, utilization rate, intervention
-              frequency, energy, maintenance reserve, useful life, and the
-              human wage + burden rate being compared. Every input will be
-              labeled with its source or explicit assumption. The output is a
-              scenario tool, not a prediction.
-            </p>
-            <div className="card p-6 mt-8 border-l-4 border-[var(--accent-amber)]">
-              <p className="font-mono text-xs text-[var(--accent-amber)] uppercase tracking-wider mb-2">
-                Assumption to watch
-              </p>
-              <p className="text-[var(--text-secondary)] mb-0">
-                Many optimistic narratives implicitly assume utilization rates
-                and intervention rates that have not yet been demonstrated at
-                fleet scale in mixed human-robot environments. If those rates
-                remain poor, even low hardware costs fail to produce attractive
-                economics.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* SCENARIOS */}
-      <section id="scenarios" className="section">
-        <div className="container">
-          <div className="container-narrow prose-report mx-auto">
-            <p className="font-mono text-xs tracking-widest text-[var(--accent-steel)] uppercase mb-4">
-              05 · Alternative Futures
-            </p>
+            <p className="font-mono text-xs tracking-widest text-[var(--accent-steel)] uppercase mb-4">04 · Alternative Futures</p>
             <h2>Four coherent scenarios</h2>
             <p>
-              Rather than assign arbitrary probabilities, this report develops
-              four internally consistent pathways. Each has its own causal
-              chain. None is presented as the most likely.
+              Rather than assign arbitrary probabilities, this report develops four internally consistent pathways.
+              Each has its own causal chain. None is presented as the most likely. Use the dashboard switcher to see how metrics diverge.
             </p>
 
             <div className="grid gap-4 mt-8">
-              <div className="card p-5">
-                <h3 className="text-lg mt-0 mb-2">Slow Adoption</h3>
-                <p className="text-sm text-[var(--text-secondary)] mb-0">
-                  Reliability, certification, maintenance cost, and limited
-                  task generality keep fleets small. Humanoids remain niche
-                  tools in high-wage, high-turnover settings through 2030.
-                  Traditional automation continues to absorb most structured work.
-                </p>
-              </div>
-              <div className="card p-5">
-                <h3 className="text-lg mt-0 mb-2">Industrial Acceleration</h3>
-                <p className="text-sm text-[var(--text-secondary)] mb-0">
-                  Cost-per-useful-hour crosses thresholds in automotive and
-                  logistics. Data feedback loops improve policies for
-                  industrial tasks. Manufacturing scale follows orders.
-                  Homes stay largely out of scope.
-                </p>
-              </div>
-              <div className="card p-5">
-                <h3 className="text-lg mt-0 mb-2">Intelligence Breakthrough</h3>
-                <p className="text-sm text-[var(--text-secondary)] mb-0">
-                  Embodied foundation models and world models dramatically
-                  improve generalization. Task engineering costs fall. Adoption
-                  broadens beyond the narrow industrial set earlier than pure
-                  hardware scaling would suggest.
-                </p>
-              </div>
-              <div className="card p-5">
-                <h3 className="text-lg mt-0 mb-2">Unexpected Constraint</h3>
-                <p className="text-sm text-[var(--text-secondary)] mb-0">
-                  A secondary bottleneck — actuators, batteries, insurance,
-                  safety incidents, supply-chain chokepoints, or energy —
-                  prevents the scaling that demos appear to promise. Progress
-                  continues but the 2030 numbers stay far below the most
-                  optimistic public claims.
-                </p>
-              </div>
+              {SCENARIOS.map((s) => (
+                <div
+                  key={s.id}
+                  className={`card p-5 border-l-4 cursor-pointer transition-colors ${
+                    scenarioId === s.id
+                      ? "border-l-[var(--accent-amber)] bg-[var(--bg-elevated)]"
+                      : "border-l-transparent hover:bg-[var(--bg-elevated)]"
+                  }`}
+                  onClick={() => setScenarioId(s.id)}
+                >
+                  <div className="flex items-center justify-between gap-3 mb-2">
+                    <h3 className="text-lg mt-0 mb-0">{s.name}</h3>
+                    {scenarioId === s.id && (
+                      <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--accent-amber)]">Active</span>
+                    )}
+                  </div>
+                  <p className="text-sm text-[var(--text-secondary)] mb-0">{s.description}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* METHODOLOGY */}
-      <section className="section">
+      <section className="section border-t border-[var(--border-subtle)]">
         <div className="container">
           <div className="container-narrow prose-report mx-auto">
-            <p className="font-mono text-xs tracking-widest text-[var(--accent-steel)] uppercase mb-4">
-              Methodology & Sources
-            </p>
-            <h2>How this report is built</h2>
+            <p className="font-mono text-xs tracking-widest text-[var(--accent-steel)] uppercase mb-4">05 · Falsifiability</p>
+            <h2>What evidence would move the scenarios</h2>
+            <p>A scenario investigation is only useful if it can be updated. The following observables would shift weight between the four pathways:</p>
+            <ul className="list-disc pl-5 space-y-2 text-[var(--text-secondary)] mb-6">
+              <li>Independently reported fleet utilization and intervention rates at multi-site scale (not single-cell pilots).</li>
+              <li>Transparent total cost of ownership including supervision, maintenance, and integration — not just hardware list price.</li>
+              <li>Demonstrated generalization: the same platform handling materially new tasks or environments with limited additional engineering.</li>
+              <li>Actuator, battery, and reducer supply-chain capacity and pricing at tens-of-thousands unit volumes.</li>
+              <li>Safety certification progress and insurance underwriting for human-shared industrial and semi-public spaces.</li>
+              <li>Divergence or convergence between Chinese volume platforms and Western industrial reliability metrics.</li>
+            </ul>
             <p>
-              Every major factual claim is tied to a source or explicitly
-              labeled as modeled or scenario. Company announcements are treated
-              as claims, not verified capabilities, unless independent evidence
-              exists. Historical industrial-robot adoption provides context but
-              is not assumed to dictate humanoid trajectories. Uncertainty is
-              stated rather than hidden behind precise-looking numbers.
-            </p>
-            <p>
-              A full source database, assumption tracker, bottleneck map, and
-              interactive unit-economics calculator are part of the complete
-              experience. This is a living research artifact, not a static essay.
-            </p>
-            <p className="text-[var(--text-muted)] text-sm mt-8">
-              Research current as of September 2026. The landscape moves quickly;
-              claims should be re-checked against primary sources.
+              If intervention rates stay high and utilization stays low through 2027–28, Slow Adoption and Unexpected Constraint gain weight.
+              If multi-cell industrial fleets show clear cost-per-useful-hour advantages and expanding task sets, Industrial Acceleration and Intelligence Breakthrough become harder to dismiss.
             </p>
           </div>
         </div>
       </section>
 
-      <footer className="py-12 border-t border-[var(--border-subtle)]">
+      <footer className="border-t border-[var(--border-subtle)] py-16">
         <div className="container">
-          <div className="flex flex-col md:flex-row justify-between gap-6 text-sm text-[var(--text-muted)]">
-            <div>
-              <div className="font-semibold text-[var(--text-secondary)] mb-1">ROBOT 2030</div>
-              <div>A scenario investigation · Not a prediction</div>
-            </div>
-            <div className="font-mono text-xs">
-              Built as an original research publication.
-              <br />
-              Independent of any single company’s roadmap.
-            </div>
+          <div className="max-w-2xl">
+            <p className="font-mono text-xs tracking-widest text-[var(--text-muted)] uppercase mb-4">ROBOT 2030</p>
+            <p className="text-[var(--text-secondary)] mb-6">
+              A scenario investigation of humanoid machines in ordinary places.
+              Original research and writing. Not affiliated with any robotics company.
+              Claims are labeled; sources are tracked; assumptions are meant to be challenged.
+            </p>
+            <p className="text-sm text-[var(--text-muted)]">
+              This is a living document. Metrics and narrative will be revised as new primary evidence appears.
+              Interactive unit-economics calculator, robot schematic, and expanded source database are in active development.
+            </p>
           </div>
         </div>
       </footer>

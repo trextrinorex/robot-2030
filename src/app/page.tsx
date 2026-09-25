@@ -6,6 +6,20 @@ import { SCENARIOS, DEFAULT_SCENARIO, type ScenarioId } from "@/data/scenarios";
 import { StickyDashboard } from "@/components/StickyDashboard";
 import { Expandable } from "@/components/Expandable";
 
+function ReadingProgress() {
+  const [progress, setProgress] = useState(0);
+  useEffect(() => {
+    const update = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(max > 0 ? (window.scrollY / max) * 100 : 0);
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
+  return <div className="progress-track"><div className="progress-fill" style={{ width: `${progress}%` }} /></div>;
+}
+
 export default function Home() {
   const [scenarioId, setScenarioId] = useState<ScenarioId>(DEFAULT_SCENARIO);
   const [activePeriodId, setActivePeriodId] = useState(TIMELINE[0].id);
@@ -39,10 +53,13 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
-      <header className="relative min-h-[100vh] flex flex-col justify-between border-b border-[var(--border-subtle)]">
-        <div className="container pt-8 pb-4 flex items-center justify-between">
-          <div className="font-mono text-xs tracking-widest text-[var(--text-muted)] uppercase">
-            Scenario Investigation · 2026
+      <ReadingProgress />
+      <header className="relative min-h-[100vh] flex flex-col justify-between border-b border-[var(--border-subtle)] overflow-hidden">
+        <div className="hero-grid" />
+        <div className="container pt-5 pb-4 flex items-center justify-between nav-glass relative z-10">
+          <div className="flex items-center gap-3">
+            <span className="live-dot" />
+            <span className="font-mono text-[10px] tracking-[.18em] text-[var(--text-muted)] uppercase">Live research document</span>
           </div>
           <nav className="hidden md:flex gap-6 text-sm text-[var(--text-secondary)]">
             <a href="#question" className="hover:text-[var(--text-primary)] transition-colors">The Question</a>
@@ -52,8 +69,9 @@ export default function Home() {
           </nav>
         </div>
 
-        <div className="container flex-1 flex flex-col justify-center py-16 md:py-24">
-          <div className="max-w-3xl">
+        <div className="container flex-1 flex flex-col justify-center py-12 md:py-20 relative z-10">
+          <div className="grid lg:grid-cols-[1.1fr_.7fr] gap-12 lg:gap-20 items-center">
+          <div className="max-w-3xl reveal-up">
             <p className="font-mono text-xs tracking-[0.2em] text-[var(--accent-amber)] uppercase mb-6">
               Not a prediction · A structured scenario investigation
             </p>
@@ -70,24 +88,44 @@ export default function Home() {
               <span className="label label-documented">Evidence labeled</span>
               <span className="label label-assumption">Assumptions explicit</span>
             </div>
+            <div className="mt-10 flex items-center gap-4 text-xs text-[var(--text-muted)]">
+              <span className="font-mono">SCROLL TO INVESTIGATE</span><span className="h-px w-12 bg-[var(--border-strong)]" />
+              <span>2025 → 2030</span>
+            </div>
+          </div>
+          <div className="hero-terminal p-6 md:p-8 reveal-up" style={{animationDelay:"120ms"}}>
+            <div className="scan-line" />
+            <div className="flex justify-between items-center mb-6 font-mono text-[9px] tracking-[.16em] uppercase text-[var(--text-muted)]">
+              <span>R30 / SYSTEM VIEW</span><span>SIMULATION // 01</span>
+            </div>
+            <div className="robot-schematic" aria-hidden="true">
+              <div className="head" /><div className="torso" />
+              <div className="arm left" /><div className="arm right" />
+              <div className="leg left" /><div className="leg right" />
+            </div>
+            <div className="grid grid-cols-2 gap-3 border-t border-[var(--border-subtle)] pt-4">
+              <div><div className="font-mono text-lg text-[var(--text-primary)]">2030</div><div className="metric-label">Scenario horizon</div></div>
+              <div><div className="font-mono text-lg text-[var(--accent-amber)]">04</div><div className="metric-label">Causal paths</div></div>
+            </div>
           </div>
         </div>
+        </div>
 
-        <div className="container pb-12">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 border-t border-[var(--border-subtle)] pt-8">
-            <div>
+        <div className="container pb-8 relative z-10">
+          <div className="metric-strip grid grid-cols-2 md:grid-cols-4 gap-0 border border-[var(--border-subtle)] rounded-sm overflow-hidden">
+            <div className="metric-tile p-5 md:p-6 border-b md:border-b-0 border-r border-[var(--border-subtle)]">
               <div className="metric-value text-2xl">~65k+</div>
               <div className="metric-label mt-1">Documented Digit operating hours</div>
             </div>
-            <div>
+            <div className="metric-tile p-5 md:p-6 border-b md:border-b-0 md:border-r border-[var(--border-subtle)]">
               <div className="metric-value text-2xl">$13.5k–$30/hr</div>
               <div className="metric-label mt-1">Observed / claimed cost range</div>
             </div>
-            <div>
+            <div className="metric-tile p-5 md:p-6 border-r border-[var(--border-subtle)]">
               <div className="metric-value text-2xl">Narrow</div>
               <div className="metric-label mt-1">Task scope of current deployments</div>
             </div>
-            <div>
+            <div className="metric-tile p-5 md:p-6">
               <div className="metric-value text-2xl">4</div>
               <div className="metric-label mt-1">Scenarios examined side-by-side</div>
             </div>

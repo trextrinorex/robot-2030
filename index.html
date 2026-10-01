@@ -11,6 +11,8 @@
 /* MOBILE INTERACTION + NAV */
 :root{--scroll-progress:0%}body:before{content:"";position:fixed;z-index:50;top:0;left:0;height:2px;width:var(--scroll-progress);background:#df5147;box-shadow:0 0 10px #df5147;pointer-events:none}.top-actions{display:flex;align-items:center;gap:10px}.menu-btn{display:none;background:transparent;color:#e7d6d2;border:1px solid rgba(210,71,64,.55);padding:9px 11px;font:8px monospace;letter-spacing:.1em}.scroll-btn,.evidence-mobile-nav button,footer button{appearance:none;background:none;border:0;color:inherit;font:inherit;cursor:pointer}.evidence-mobile-nav{display:none}
 @media(max-width:850px){.menu-btn{display:block}.top-actions .contact{display:none}.topbar nav{position:absolute;top:64px;right:14px;display:flex;flex-direction:column;gap:0;width:170px;background:rgba(8,7,8,.97);border:1px solid rgba(210,71,64,.45);padding:6px;opacity:0;visibility:hidden;transform:translateY(-8px);transition:.2s}.topbar nav.open{opacity:1;visibility:visible;transform:none}.topbar nav a{padding:14px 12px;border-bottom:1px solid rgba(255,255,255,.07);font-size:10px}.topbar nav a:last-child{border-bottom:0}.hero-bottom .scroll-btn{font-size:8px;letter-spacing:.08em}.evidence-mobile-nav{display:block;position:absolute;z-index:5;left:24px;bottom:24px}.evidence-mobile-nav button{border:1px solid rgba(223,81,71,.6);padding:11px 14px;color:#e8ddd8}.showcase-image{position:relative}footer button{color:#b9afab}.robot-stage{touch-action:pan-y}}
+
+.research{padding:125px 8vw 110px;background:#0c0a0b;border-top:1px solid #292020}.research-head{max-width:850px}.research-head h2,.capability h2,.workflows h2,.economics h2,.sources h2{font-size:clamp(52px,8vw,120px);line-height:.84;letter-spacing:-.07em;margin:20px 0}.research-head h2 i,.capability h2 i,.workflows h2 i,.economics h2 i,.sources h2 i{font-style:normal;color:#c9433c}.research-head p{max-width:530px;color:#8f8783;line-height:1.7;font-size:13px}.research-grid{display:grid;grid-template-columns:repeat(3,1fr);margin-top:75px;border-top:1px solid #302728}.research-grid article{min-height:245px;padding:25px 25px 30px 0;border-right:1px solid #302728;border-bottom:1px solid #302728}.research-grid article:nth-child(3n+2),.research-grid article:nth-child(3n+3){padding-left:25px}.research-grid small{font:8px monospace;color:#9c4a44;letter-spacing:.15em}.research-grid strong{display:block;margin:22px 0 9px;font-size:25px;letter-spacing:-.04em}.research-grid h3{font-size:17px;margin:0 0 10px}.research-grid p{color:#817976;font-size:11px;line-height:1.65;max-width:280px}.capability{padding:125px 8vw;background:#e7e0db;color:#171315;display:grid;grid-template-columns:.9fr 1.1fr;gap:8vw}.capability-copy p{max-width:390px;color:#6d6461;font-size:13px;line-height:1.7}.stack{border-top:1px solid #aaa19c;margin-top:20px}.stack div{display:grid;grid-template-columns:45px 1fr 1fr;align-items:center;padding:19px 0;border-bottom:1px solid #aaa19c}.stack b{font:9px monospace;color:#a8322f}.stack span{font-size:13px;font-weight:800}.stack em{font-style:normal;color:#756b68;font-size:11px;text-align:right}.workflows{padding:125px 8vw;background:#090809}.workflow-top{display:flex;justify-content:space-between;font:8px monospace;color:#817875;letter-spacing:.14em}.workflows h2{margin-top:75px}.workflow-table{margin-top:70px;border-top:1px solid #302728}.wf{display:grid;grid-template-columns:1fr 2fr 1fr;gap:20px;padding:22px 0;border-bottom:1px solid #302728}.wf b{font-size:13px}.wf span{color:#8d8581;font-size:11px}.wf i{font:8px monospace;color:#b74640;text-align:right}.economics{padding:130px 8vw;background:radial-gradient(circle at 70% 40%,#70221f,#180c0d 40%,#090708 72%);display:grid;grid-template-columns:1fr .8fr;gap:10vw}.economics-copy{align-self:center;color:#bdb1ad}.economics-copy>p{font-size:14px;line-height:1.7}.formula{border-top:1px solid rgba(255,255,255,.2);border-bottom:1px solid rgba(255,255,255,.2);padding:24px 0;margin:30px 0;display:flex;flex-direction:column;gap:8px;font:10px monospace}.formula span,.formula small{color:#c04b43}.formula b{font-size:13px;color:#eee4df}.econ-row{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.1);font-size:11px}.econ-row span{color:#806f6b}.scenarios{display:grid;grid-template-columns:repeat(3,1fr);background:#e7e0db;color:#181416;padding:90px 8vw;gap:1px}.scenario-card{padding:35px;background:#e7e0db;min-height:300px;border:1px solid #aaa19c}.scenario-card.featured{background:#b83b35;color:#fff;border-color:#b83b35}.scenario-card span{font:9px monospace;letter-spacing:.15em}.scenario-card h3{font-size:32px;letter-spacing:-.05em;margin:70px 0 15px}.scenario-card p{font-size:12px;line-height:1.7;max-width:300px;color:#6c6461}.featured p{color:#eadbd7}.sources{padding:130px 8vw;background:#f0eae5;color:#171315;display:grid;grid-template-columns:1fr 1fr;gap:8vw}.sources h2{margin-top:70px}.source-list{padding-top:15px}.source-list a{display:block;padding:20px 0;border-bottom:1px solid #aaa19c;color:#272021;text-decoration:none;font-size:12px}.source-list a:hover{color:#a8322f}.source-list p{margin-top:35px;color:#706764;font-size:10px;line-height:1.7}@media(max-width:850px){.research,.workflows,.economics,.sources{padding:95px 24px}.research-grid{grid-template-columns:1fr;margin-top:45px}.research-grid article,.research-grid article:nth-child(3n+2),.research-grid article:nth-child(3n+3){padding:22px 0;border-right:0}.capability{display:block;padding:95px 24px}.stack{margin-top:50px}.stack div{grid-template-columns:35px 1fr}.stack em{display:none}.workflow-top{gap:20px}.workflows h2{margin-top:55px}.workflow-table{margin-top:45px}.wf{grid-template-columns:1fr;gap:7px}.wf i{text-align:left}.economics{display:block}.economics-copy{margin-top:50px}.scenarios{grid-template-columns:1fr;padding:24px;gap:12px}.scenario-card h3{margin-top:50px}.sources{display:block}.source-list{margin-top:40px}}
 </style>
 </head>
 <body>
@@ -20,7 +22,7 @@
 <header class="topbar">
   <a class="brand" href="#top"><span class="brand-mark">R</span><span>ROBOT<br><i>2030</i></span></a>
   <nav id="mainNav">
-    <a href="#scenario">Scenario</a><a href="#path">The Path</a><a href="#jobs">Jobs</a><a href="#evidence">Evidence</a>
+    <a href="#scenario">Scenario</a><a href="#path">The Path</a><a href="#jobs">Jobs</a><a href="#evidence">Evidence</a><a href="#research">Research</a>
   </nav>
   <div class="top-actions"><a class="contact" href="#method" data-scroll="method">READ REPORT <span>↗</span></a><button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu">MENU</button></div>
 </header>
@@ -90,6 +92,70 @@
   <div class="showcase-panel"><span class="eyebrow">03 / EVIDENCE</span><h2>USEFUL IS NOT<br>THE SAME AS<br><i>IMPRESSIVE.</i></h2><p>Every claim in this report is separated into documented evidence, modeled values, assumptions and speculative branches.</p><a class="read" href="#method">READ THE METHOD <span>→</span></a></div>
 </section>
 
+<section class="research" id="research">
+  <div class="research-head"><span class="eyebrow">05 / THE RESEARCH</span><h2>THE <i>BOT</i>TLENECKS.</h2><p>Humanoid robotics is not one breakthrough. It is a stack of problems that have to become good enough at the same time.</p></div>
+  <div class="research-grid">
+    <article><small>01 / COST</small><strong>$30K–$150K</strong><h3>Today is expensive.</h3><p>Published industry analysis places typical humanoid bill-of-materials costs in a wide range. Cost compression is a prerequisite for broad deployment.</p></article>
+    <article><small>02 / ACTUATION</small><strong>40–60%</strong><h3>The joints matter.</h3><p>Actuators—motors, gearboxes, joint assemblies, sensors and drivers—can represent the largest share of a humanoid's bill of materials.</p></article>
+    <article><small>03 / RELIABILITY</small><strong>UPTIME</strong><h3>A demo is not a shift.</h3><p>Real deployment requires sustained operation, maintenance, charging, recovery from failures and predictable performance across thousands of cycles.</p></article>
+    <article><small>04 / DATA</small><strong>PHYSICAL AI</strong><h3>The world is messy.</h3><p>Robots need perception, manipulation and action data from the physical world. Simulation can help, but reality still supplies the hardest edge cases.</p></article>
+    <article><small>05 / SAFETY</small><strong>HUMAN + ROBOT</strong><h3>Fenceless operation.</h3><p>Working around people changes the engineering problem: force control, perception, fail-safe behavior, liability and workplace acceptance all matter.</p></article>
+    <article><small>06 / SUPPLY CHAIN</small><strong>ACTUATORS · BATTERIES · SENSORS</strong><h3>Scale needs suppliers.</h3><p>Large volumes require standardized components, tooling, quality systems and service networks—not just a clever prototype.</p></article>
+  </div>
+</section>
+
+<section class="capability" id="capability">
+  <div class="capability-copy"><span class="eyebrow">06 / CAPABILITY STACK</span><h2>WHAT HAS TO<br><i>IMPROVE?</i></h2><p>Think of a useful humanoid as six systems working together. A weakness in one layer can limit the entire machine.</p></div>
+  <div class="stack">
+    <div><b>01</b><span>PERCEPTION</span><em>See the scene</em></div>
+    <div><b>02</b><span>REASONING</span><em>Choose an action</em></div>
+    <div><b>03</b><span>MANIPULATION</span><em>Use hands and tools</em></div>
+    <div><b>04</b><span>LOCOMOTION</span><em>Move safely</em></div>
+    <div><b>05</b><span>ENERGY</span><em>Work long enough</em></div>
+    <div><b>06</b><span>RECOVERY</span><em>Handle failure</em></div>
+  </div>
+</section>
+
+<section class="workflows" id="workflows">
+  <div class="workflow-top"><span class="eyebrow">07 / WHERE THEY FIT</span><span>FROM STRUCTURED → UNSTRUCTURED</span></div>
+  <h2>NOT EVERY JOB<br>IS EQUALLY <i>READY.</i></h2>
+  <div class="workflow-table">
+    <div class="wf"><b>FACTORIES</b><span>Repetitive handling · inspection · assembly</span><i>HIGHER STRUCTURE</i></div>
+    <div class="wf"><b>WAREHOUSES</b><span>Tote handling · picking · sorting · exceptions</span><i>HIGH / MEDIUM</i></div>
+    <div class="wf"><b>RETAIL</b><span>Restocking · inventory · back-room work</span><i>MEDIUM</i></div>
+    <div class="wf"><b>HEALTHCARE</b><span>Transport · support tasks · logistics</span><i>HARDER</i></div>
+    <div class="wf"><b>HOMES</b><span>Cleaning · cooking · arbitrary objects</span><i>HARDEST</i></div>
+  </div>
+</section>
+
+<section class="economics" id="economics">
+  <div><span class="eyebrow">08 / THE ECONOMICS</span><h2>THE REAL<br>COMPETITION IS<br><i>COST × TIME.</i></h2></div>
+  <div class="economics-copy">
+    <p>A robot does not need to outperform a human at every task. It needs to create enough useful output per unit of total cost to justify deployment.</p>
+    <div class="formula"><span>VALUE</span><b>USEFUL OUTPUT × AVAILABILITY</b><small>÷</small><b>TOTAL COST OF OWNERSHIP</b></div>
+    <div class="econ-row"><span>CAPEX</span><b>Purchase / lease</b></div>
+    <div class="econ-row"><span>OPEX</span><b>Energy + maintenance + service</b></div>
+    <div class="econ-row"><span>HUMAN LOOP</span><b>Supervision + exception handling</b></div>
+  </div>
+</section>
+
+<section class="scenarios" id="scenarios">
+  <div class="scenario-card"><span>BRANCH A</span><h3>THE SCALE-UP</h3><p>Costs fall, reliability improves and factories become the learning environment. Deployments expand before household robots become normal.</p></div>
+  <div class="scenario-card featured"><span>BRANCH B</span><h3>THE BOTTLENECK</h3><p>AI capability advances faster than hardware, safety and supply chains. Robots remain valuable but concentrated in narrow workflows.</p></div>
+  <div class="scenario-card"><span>BRANCH C</span><h3>THE SLOW BURN</h3><p>Hardware improves steadily, but economics and maintenance keep humans in the loop for longer than expected.</p></div>
+</section>
+
+<section class="sources" id="sources">
+  <div><span class="eyebrow">09 / SOURCES & LIMITS</span><h2>FOLLOW<br>THE <i>EVIDENCE.</i></h2></div>
+  <div class="source-list">
+    <a href="https://www.mckinsey.com/industries/industrials/our-insights/humanoid-robots-crossing-the-chasm-from-concept-to-commercial-reality" target="_blank" rel="noopener">McKinsey — Humanoid robots: Crossing the chasm to commercial reality ↗</a>
+    <a href="https://www.mckinsey.com/industries/industrials/our-insights/turning-humanoid-supply-chain-constraints-into-billion-dollar-wins" target="_blank" rel="noopener">McKinsey — Humanoid supply-chain constraints ↗</a>
+    <a href="https://www.horvath-partners.com/en/media-center/studies/humanoid-robots-report-2025" target="_blank" rel="noopener">Horváth — Humanoid Robots Report 2025 ↗</a>
+    <a href="https://reports.weforum.org/docs/WEF_Technology_Convergence_Report_2025.pdf" target="_blank" rel="noopener">World Economic Forum — Technology Convergence Report 2025 ↗</a>
+    <a href="https://www.ipa.fraunhofer.de/de/Publikationen/studien/humanoid-hardware-value-chain.html" target="_blank" rel="noopener">Fraunhofer IPA — Humanoid Hardware Value Chain 2026 ↗</a>
+    <p>Numbers on this page are sourced estimates, ranges or scenario framing—not guaranteed outcomes. Forecasts can differ substantially between researchers.</p>
+  </div>
+</section>
 <section class="method" id="method">
   <div class="method-top"><span>04 / METHOD</span><span>ROBOT 2030 · REV. 01</span></div>
   <h2>FOUR LAYERS.<br><i>ONE SCENARIO.</i></h2>

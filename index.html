@@ -1,1 +1,103 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ROBOT 2030</title><link rel="stylesheet" href="./robot.css"></head><body><header class="hero"><div class="wrap grid"><div><div class="eyebrow">SCENARIO INVESTIGATION · HUMANOID MACHINES</div><h1 class="title">ROBOT<br><span>2030</span></h1><p class="copy">What happens if humanoid robots become economically useful, technically capable, and scalable enough to move from demonstrations into ordinary workplaces?</p><div class="tags"><span class="tag">DOCUMENTED</span><span class="tag">MODELED</span><span class="tag">SCENARIO</span><span class="tag">ASSUMPTION</span></div></div><div class="scene" id="scene"><div class="scan"></div><div class="ring"></div><div class="hud h1">UNIT // <b>H-30</b><br>STATUS: OPERATIONAL</div><div class="hud h2">FIELD SCENARIO<br><b>2030</b></div><div class="hud h3">ORDINARY PLACES / 01</div><div class="robot" id="robot"><div class="head"><div class="visor"></div></div><div class="neck"></div><div class="torso"><div class="core"></div><div class="arm l"></div><div class="arm r"></div><div class="leg l"><div class="foot l"></div></div><div class="leg r"><div class="foot r"></div></div></div></div></div></div></header><section class="section"><div class="inner wrap"><div class="eyebrow">01 / CORE QUESTION</div><h2>Useful is not the same<br>as impressive.</h2><p class="copy">An evidence-driven investigation into the economics, capability and scaling constraints that determine whether humanoid machines move beyond demonstrations.</p><div class="cards"><article class="card"><strong>ECONOMICS</strong><h3>Can the unit economics work?</h3><p>Cost, utilization, maintenance, energy and task value determine whether deployment makes sense.</p></article><article class="card"><strong>CAPABILITY</strong><h3>What can actually be automated?</h3><p>Dexterity, reliability, perception and recovery from unexpected situations matter.</p></article><article class="card"><strong>SCALE</strong><h3>What happens after the pilot?</h3><p>Manufacturing, service, safety and organizational adoption become the bottlenecks.</p></article></div></div></section><section class="section"><div class="inner wrap"><div class="eyebrow">02 / METHOD</div><h2>Evidence over hype.</h2><p class="copy">Documented facts, modeled values, assumptions and speculative branches are deliberately kept separate. Multiple futures are explored rather than presented as a single prediction.</p></div></section><footer class="footer"><div class="inner">ROBOT 2030 · Evidence-driven, not a prediction.</div></footer><script>const s=document.getElementById('scene'),r=document.getElementById('robot');s.addEventListener('pointermove',e=>{const b=s.getBoundingClientRect(),x=(e.clientX-b.left)/b.width-.5,y=(e.clientY-b.top)/b.height-.5;r.style.transform='translate(-50%,-50%) rotateY('+x*14+'deg) rotateX('+(-y*10)+'deg) translateZ(18px)'});s.addEventListener('pointerleave',()=>r.style.transform='translate(-50%,-50%)');</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090708">
+<title>ROBOT 2030 — Scenario Investigation</title>
+<link rel="stylesheet" href="./robot.css">
+</head>
+<body>
+<div class="noise"></div>
+<div class="cursor-glow" id="glow"></div>
+
+<header class="topbar">
+  <a class="brand" href="#top"><span class="brand-mark">R</span><span>ROBOT<br><i>2030</i></span></a>
+  <nav>
+    <a href="#scenario">Scenario</a><a href="#path">The Path</a><a href="#jobs">Jobs</a><a href="#evidence">Evidence</a>
+  </nav>
+  <a class="contact" href="#method">READ REPORT <span>↗</span></a>
+</header>
+
+<main id="top">
+<section class="hero" id="scenario">
+  <div class="hero-bg"></div>
+  <div class="embers" aria-hidden="true"></div>
+  <div class="hero-meta meta-left"><span>SCENARIO 01</span><b>HUMANOID MACHINES</b><small>FIELD STUDY · 2030</small></div>
+  <div class="hero-meta meta-right"><span>STATUS</span><b>UNDER INVESTIGATION</b><small>NOT A PREDICTION</small></div>
+
+  <div class="hero-copy">
+    <div class="kicker"><span></span> A SCENARIO INVESTIGATION</div>
+    <h1><em>ROBOT</em><strong>2030</strong></h1>
+    <p>What happens when humanoid machines stop being impressive demonstrations — and start becoming useful?</p>
+    <div class="hero-stats"><span><b>01</b> ECONOMICS</span><span><b>02</b> CAPABILITY</span><span><b>03</b> SCALE</span></div>
+  </div>
+
+  <div class="robot-stage" id="stage">
+    <div class="halo"></div>
+    <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
+    <div class="robot-shadow"></div>
+    <div class="robot" id="robot">
+      <div class="antenna"></div>
+      <div class="r-head"><div class="r-face"><i></i><i></i></div></div>
+      <div class="r-neck"></div>
+      <div class="r-torso"><div class="chest"><span></span></div><div class="rib r1"></div><div class="rib r2"></div></div>
+      <div class="r-arm left"><div class="shoulder"></div><div class="upper"></div><div class="elbow"></div><div class="lower"></div><div class="hand"></div></div>
+      <div class="r-arm right"><div class="shoulder"></div><div class="upper"></div><div class="elbow"></div><div class="lower"></div><div class="hand"></div></div>
+      <div class="r-leg left"><div class="thigh"></div><div class="knee"></div><div class="shin"></div><div class="boot"></div></div>
+      <div class="r-leg right"><div class="thigh"></div><div class="knee"></div><div class="shin"></div><div class="boot"></div></div>
+    </div>
+    <div class="data-tag tag-a">UNIT / H-30<br><b>HUMANOID PLATFORM</b></div>
+    <div class="data-tag tag-b">CORE LOAD<br><b>72.4% NOMINAL</b></div>
+    <div class="data-tag tag-c">TASK MODEL<br><b>GENERAL PURPOSE</b></div>
+  </div>
+
+  <div class="hero-bottom"><span>SCROLL TO ENTER THE SCENARIO</span><i></i><span>01 / 05</span></div>
+</section>
+
+<section class="chapter dark" id="path">
+  <div class="chapter-number">01</div>
+  <div class="chapter-head"><span>THE PATH</span><h2>FROM <i>DEMO</i><br>TO DEPLOYMENT.</h2></div>
+  <div class="chapter-copy">The question is not whether a robot can perform one spectacular task. It is whether thousands of ordinary tasks can become economically viable, reliable and repeatable.</div>
+  <div class="timeline">
+    <article><small>2024 — 2026</small><b>PROTOTYPE</b><p>Walking, manipulation, vision and increasingly capable foundation models.</p></article>
+    <article class="active"><small>2027 — 2029</small><b>DEPLOYMENT</b><p>Pilots move into factories, logistics, warehouses and structured environments.</p></article>
+    <article><small>2030 →</small><b>SCALE</b><p>Manufacturing, maintenance, safety and utilization become the real constraints.</p></article>
+  </div>
+</section>
+
+<section class="chapter red" id="jobs">
+  <div class="ghost">WORK</div>
+  <div class="split">
+    <div><span class="eyebrow">02 / JOBS</span><h2>THE ROBOT<br>DOESN'T NEED<br>TO BE <i>HUMAN.</i></h2></div>
+    <div class="side-copy"><p>It needs to be cheap enough, capable enough and available enough to take over a useful slice of a workflow.</p><div class="metric"><b>8–12 HRS</b><span>Potential operating window in a structured workday</span></div><div class="metric"><b>1 × 1</b><span>Human-shaped interfaces become one reason to use a humanoid form</span></div></div>
+  </div>
+</section>
+
+<section class="showcase" id="evidence">
+  <div class="showcase-image">
+    <div class="showcase-robot"></div>
+    <div class="slash"></div><div class="slash two"></div>
+    <div class="showcase-word">CAPABLE</div>
+  </div>
+  <div class="showcase-panel"><span class="eyebrow">03 / EVIDENCE</span><h2>USEFUL IS NOT<br>THE SAME AS<br><i>IMPRESSIVE.</i></h2><p>Every claim in this report is separated into documented evidence, modeled values, assumptions and speculative branches.</p><a class="read" href="#method">READ THE METHOD <span>→</span></a></div>
+</section>
+
+<section class="method" id="method">
+  <div class="method-top"><span>04 / METHOD</span><span>ROBOT 2030 · REV. 01</span></div>
+  <h2>FOUR LAYERS.<br><i>ONE SCENARIO.</i></h2>
+  <div class="layers"><div><b>DOCUMENTED</b><span>Observed facts & public evidence</span></div><div><b>MODELED</b><span>Explicit calculations & ranges</span></div><div><b>ASSUMED</b><span>Inputs that must hold for the scenario</span></div><div><b>SPECULATIVE</b><span>Branches that remain uncertain</span></div></div>
+</section>
+</main>
+
+<footer><span>ROBOT 2030</span><span>EVIDENCE-DRIVEN · NOT A PREDICTION</span><span>↗ BACK TO TOP</span></footer>
+
+<script>
+const stage=document.getElementById('stage'), robot=document.getElementById('robot'), glow=document.getElementById('glow');
+stage.addEventListener('pointermove',e=>{const r=stage.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;robot.style.transform='translate3d('+x*18+'px,'+y*12+'px,0) rotateY('+x*7+'deg) rotateX('+(-y*4)+'deg)';glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px'});
+stage.addEventListener('pointerleave',()=>robot.style.transform='translate3d(0,0,0)');
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.15});
+document.querySelectorAll('.chapter,.showcase,.method,.timeline article').forEach(x=>io.observe(x));
+</script>
+</body>
+</html>

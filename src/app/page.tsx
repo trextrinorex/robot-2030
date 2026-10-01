@@ -5,6 +5,7 @@ import { TIMELINE } from "@/data/timeline";
 import { SCENARIOS, DEFAULT_SCENARIO, type ScenarioId } from "@/data/scenarios";
 import { StickyDashboard } from "@/components/StickyDashboard";
 import { Expandable } from "@/components/Expandable";
+import { FutureRobotScene } from "@/components/FutureRobotScene";
 
 function ReadingProgress() {
   const [progress, setProgress] = useState(0);
@@ -98,11 +99,7 @@ export default function Home() {
             <div className="flex justify-between items-center mb-6 font-mono text-[9px] tracking-[.16em] uppercase text-[var(--text-muted)]">
               <span>R30 / SYSTEM VIEW</span><span>SIMULATION // 01</span>
             </div>
-            <div className="robot-schematic" aria-hidden="true">
-              <div className="head" /><div className="torso" />
-              <div className="arm left" /><div className="arm right" />
-              <div className="leg left" /><div className="leg right" />
-            </div>
+            <FutureRobotScene />
             <div className="grid grid-cols-2 gap-3 border-t border-[var(--border-subtle)] pt-4">
               <div><div className="font-mono text-lg text-[var(--text-primary)]">2030</div><div className="metric-label">Scenario horizon</div></div>
               <div><div className="font-mono text-lg text-[var(--accent-amber)]">04</div><div className="metric-label">Causal paths</div></div>
